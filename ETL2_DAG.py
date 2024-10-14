@@ -45,7 +45,7 @@ elasticsearch_extract_task = PythonOperator(
 
 row_slice_transform_task = PythonOperator(
     task_id='row_slice_transform',
-    python_callable=transporter.slice_by_row,  # Corrected spelling
+    python_callable=transporter.slice_by_row,  
     op_kwargs={'num': 3, 'redis_dest': 'row_transport_data'},
     dag=ETL_DAG,
     retries=1, retry_delay=timedelta(seconds=30),
@@ -53,7 +53,7 @@ row_slice_transform_task = PythonOperator(
 
 column_slice_transform_task = PythonOperator(
     task_id='column_slice_transform',
-    python_callable=transporter.slice_by_column,  # Corrected spelling
+    python_callable=transporter.slice_by_column,  
     op_kwargs={'num': 2, 'redis_dest': 'column_transport_data'},
     dag=ETL_DAG,
     retries=1, retry_delay=timedelta(seconds=30),
@@ -70,7 +70,7 @@ row_loader_task = PythonOperator(
 column_loader_task = PythonOperator(
     task_id='column_loader_task',
     python_callable=loader.to_csv,
-    op_kwargs={'csv_path': "COLUMN_SLICE", 'redis_key': 'column_transport_data'},  # Changed to op_kwargs
+    op_kwargs={'csv_path': "COLUMN_SLICE", 'redis_key': 'column_transport_data'}, 
     dag=ETL_DAG,
     retries=1, retry_delay=timedelta(seconds=30),
 )
